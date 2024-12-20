@@ -1,0 +1,22 @@
+<div class="sidebar">
+  {{ range first 1 (where $.Site.RegularPages "Type" "blog") }}
+    <aside>
+      {{- with .Date -}}
+        Dia {{ .Format "2006-01-02" }}
+      {{- end -}}
+      {{ if .Params.Video }}
+        <div>
+          <iframe width="405" height="720" src="https://www.youtube.com/embed/{{ .Params.Video }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      {{ end }}
+    </aside>
+  {{ end }}
+
+  {{ $cv := index $.Site.Data.json_resume $.Site.Language.Lang }}
+  {{ if $cv.basics }}
+    <aside class="bio">
+      {{ partial "json-resume/basics.html" . }}
+      <hr />
+    </aside>
+  {{ end }}
+</div>
